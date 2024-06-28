@@ -25,8 +25,8 @@ jobs:
       - name: run pytest case
         run: |
           pwd
-          pytest -v --md-report --md-report-output ./result.md ./testdemo.py
-          cp ./result.md ${{ env.GITHUB_WORKSPACE	}}
+          pytest -v --md-report --md-report-output ./report.md ./testdemo.py
+          cp ./report.md ${{ env.GITHUB_WORKSPACE	}}/result
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
