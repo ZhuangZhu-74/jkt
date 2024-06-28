@@ -25,10 +25,10 @@ jobs:
       - name: run pytest case
         run: |
           mkdir -p output
-          pytest -v --md-report --md-report-output ./output/result.md ./testdemo.py
+          pytest -v --md-report --md-report-output ./result/result.md ./testdemo.py
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./output
+          publish_dir: ./result
