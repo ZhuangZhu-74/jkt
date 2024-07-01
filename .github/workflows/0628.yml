@@ -7,6 +7,8 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
 
     steps:
@@ -19,17 +21,21 @@ jobs:
           python-version: '3.9'  # Choose your desired Python version
           cache: 'pip'  # Cache pip dependencies
 
-      - name: inst req
+      - name: pip inst reqs
         run: pip install -r requirements.txt
 
       - name: run pytest case
         run: |
-          pwd
-          pytest -v --md-report --md-report-output ./result/report.md ./testdemo.py
+          #pytest -v --md-report --md-report-flavor jekyll --md-report-output ./source/index.rst ./testdemo.py
+          pytest -v --self-contained-html --html=./source/report_$(date -I).html ./testdemo.py
+
+      - name: Build HTML
+        run: |
+          sphinx-build -b html ./source ./build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./result
-          publish_branch: main
+          publish_dir: ./build
+          #enable_jekyll: true
