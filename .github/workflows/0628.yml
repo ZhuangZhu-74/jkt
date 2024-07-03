@@ -26,16 +26,18 @@ jobs:
 
       - name: run pytest case
         run: |
+          mkdir -p ./docs/source/_static/
           #pytest -v --md-report --md-report-flavor jekyll --md-report-output ./source/index.rst ./testdemo.py
-          pytest -v --self-contained-html --html=./source/report_$(date -I).html ./testdemo.py
+          pytest -v --self-contained-html --html=./docs/source/_static/report.html ./testdemo.py
 
       - name: Build HTML
         run: |
-          sphinx-build -b html ./source ./build
+          cd docs
+          sphinx-build -M html source _build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
+          publish_dir: ./docs/_build
           #enable_jekyll: true
