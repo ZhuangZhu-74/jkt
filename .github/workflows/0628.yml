@@ -9,10 +9,18 @@ on:
 jobs:
   build:
     permissions:
+      # for gh-pages
       contents: write
     runs-on: ubuntu-latest
 
     steps:
+      - name: Set timezone
+        uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "Asia/Singapore"
+          timezoneMacos: "Asia/Singapore"
+          timezoneWindows: "Singapore Standard Time"
+
       - name: Checkout code
         uses: actions/checkout@v2
 
