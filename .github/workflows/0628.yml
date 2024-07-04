@@ -1,6 +1,7 @@
 name: pytest demo
 
 on:
+  workflow_dispatch: 
   push:
     branches: 
       - main
@@ -26,9 +27,7 @@ jobs:
 
       - name: run pytest case
         run: |
-          mkdir -p ./docs/source/_static/
-          #pytest -v --md-report --md-report-flavor jekyll --md-report-output ./source/index.rst ./testdemo.py
-          pytest -v --self-contained-html --html=./docs/source/_static/report.html ./testdemo.py
+          pytest ./testdemo.py
 
       - name: Build HTML
         run: |
@@ -39,5 +38,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/_build
+          publish_dir: ./docs/_build/
           #enable_jekyll: true

@@ -1,3 +1,6 @@
+# ignore for debug purpose run
+docs/source/_static/report.html
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
